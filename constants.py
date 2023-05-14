@@ -63,7 +63,7 @@ neighbour_letters = {
     }
 }
 
-letters = {
+keyboard_letters = {
     "en" : "abcdefghijklmnopqrstuvwxyz",
     "am" : "աբգդեզէըթժիլխծկհձղճմյնշոչպջռսվտրցւփքօֆ"
 }
