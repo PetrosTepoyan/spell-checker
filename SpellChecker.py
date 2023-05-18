@@ -37,8 +37,6 @@ class SpellChecker:
         
     def P(self, edit: Edit): 
         "Probability of `edit`."
-        
-        # first sort by probability, then sort by edit_type, then sort by keyboard distance, if any
         return self.WORDS[edit.edit] / self.N
 
     def correction(self, word): 
