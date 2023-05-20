@@ -72,20 +72,14 @@ class Edit:
                 {self.prev_edit}
         """
     
-    def probability(self, keyboard_weight = 1.0, edit_type_weight = 1.0, word_probability_weight = 5.0):
-        keyboard_weight = keyboard_weight
-        edit_type_weight = edit_type_weight
-        word_probability_weight = word_probability_weight  # Give more weight to word probability
+    def probability(self, keyboard_weight = 1.0, edit_type_weight = 0.1, word_probability_weight = 20.0):
+        # Scale the distances and probabilities so they have similar magnitudes.
+        keyboard_distance_score = 1 / (1 + self.keyboard_distance + self.levenshtein_distance) ** keyboard_weight
+        edit_type_probability = self.edit_type.probability() ** edit_type_weight
+        word_probability = self.edit_word_probability ** word_probability_weight
 
-        keyboard_distance_score = 1 / (self.keyboard_distance + 1e-3)  # Add small constant to avoid division by zero
-        edit_type_probability = self.edit_type.probability()
+        # Combine them using multiplication: this will return high probability only if all factors are high.
+        combined_probability = keyboard_distance_score * edit_type_probability * word_probability
+        return combined_probability
 
-        # Use logarithm of word probability to provide a stronger differentiation between words
-        word_probability = np.log(self.edit_word_probability + 1e-10)  # Add small constant to ensure the logarithm is defined
-
-        return (
-            keyboard_weight * keyboard_distance_score +
-            edit_type_weight * edit_type_probability +
-            word_probability_weight * word_probability
-        )
 

@@ -28,7 +28,7 @@ class SpellChecker:
                 key_coordinates[key] = (i, j)
 
         if key1 not in key_coordinates or key2 not in key_coordinates:
-            raise ValueError("Both keys must be on the keyboard")
+            return 0
 
         x1, y1 = key_coordinates[key1]
         x2, y2 = key_coordinates[key2]
@@ -47,7 +47,7 @@ class SpellChecker:
         # correction is defined as following:
         candidates = list(self.candidates(word))
         
-        candidates.sort(key = lambda x: checker.P(x), reverse = True)
+        candidates.sort(key = lambda x: self.P(x), reverse = True)
         candidates.sort(key = lambda x: x.keyboard_distance)
         candidates.sort(key = lambda x: x.edit_type.value)
         

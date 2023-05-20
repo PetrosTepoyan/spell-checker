@@ -12,19 +12,23 @@ class NGramModel:
         self.trigrams = list(ngrams(tokenized_text, 3))
         
     def predict_next_word(self, sentence, possible_words):
+        
+        probabilities = self.get_probabilities(sentence, possible_words)
+        
+        return max(probabilities, key=probabilities.get)
+    
+    def get_probabilities(self, sentence, possible_words):
         tokenized_sentence = nltk.word_tokenize(sentence)
         w1, w2 = tokenized_sentence[-2:]  # Get the last two words from the sentence
 
-        probabilities = {}
+        probabilities = {word: 0 for word in possible_words}
         for trigram in self.trigrams:
-            if trigram[:2] == (w1, w2):
+            if trigram[:2] == (w1, w2) and trigram[2] in possible_words:
                 word = trigram[2]
                 probabilities[word] = probabilities.get(word, 0) + 1
 
         total_count = sum(probabilities.values())
-        probabilities = {word: count / total_count for word, count in probabilities.items()}
-        
-        if max(probabilities, key=probabilities.get) == 0:
-            return None
-        else:
-            return max(probabilities, key=probabilities.get)
+        probabilities = {word: count / (total_count + 1) for word, count in probabilities.items()}
+
+        return probabilities
+
