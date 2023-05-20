@@ -1,1 +1,2 @@
-# spell-checker
+# Spell Checker & iOS App
+
