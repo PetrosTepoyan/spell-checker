@@ -37,7 +37,7 @@ class EditType(Enum):
             return 0.05
 
 class Edit:
-    
+
     def __init__(self, 
                  word, 
                  edit,

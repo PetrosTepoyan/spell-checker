@@ -11,7 +11,7 @@ import SwiftUI
 struct SpellCheckerAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainScreen()
         }
     }
 }
