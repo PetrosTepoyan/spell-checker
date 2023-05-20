@@ -1,13 +1,13 @@
 import re
 from collections import Counter
-from app.constants import keyboard_letters, neighbour_letters, keyboard_layouts
-from Edit import Edit, EditType
+from core.constants import keyboard_letters, neighbour_letters, keyboard_layouts
+from core.Edit import Edit, EditType
 
 class SpellChecker:
     
     def __init__(self, language = "en"):
         
-        file_to_open = f'big_{language}.txt'
+        file_to_open = f'texts/big_{language}.txt'
         
         with open(file_to_open, "r") as file:
             raw_text = file.read()
