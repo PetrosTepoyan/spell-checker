@@ -29,10 +29,13 @@ final class MainScreenViewModel: ObservableObject {
                 NetworkService.shared.requestCorrections(for: newValue) { result in
                     switch result {
                     case .success(let corrections):
-                        if !corrections.joined().contains(self.lastWord) {
-                            withAnimation(.spring()) {
-                                self.corrections = corrections
+                        if !corrections.contains(self.lastWord) {
+                            DispatchQueue.main.async {
+                                withAnimation(.spring()) {
+                                    self.corrections = corrections
+                                }
                             }
+                            
                         }
                     case .failure(let failure):
                         print(failure)
@@ -43,8 +46,10 @@ final class MainScreenViewModel: ObservableObject {
         
         self.$text
             .sink { _ in
-                withAnimation(.spring()) {
-                    self.corrections.removeAll()
+                DispatchQueue.main.async {
+                    withAnimation(.spring()) {
+                        self.corrections.removeAll()
+                    }
                 }
             }
             .store(in: &bag)
