@@ -5,9 +5,12 @@ from core.Edit import Edit, EditType
 
 class SpellChecker:
     
-    def __init__(self, language = "en"):
+    def __init__(self, language = "en", override_file = None):
         
-        file_to_open = f'texts/big_{language}.txt'
+        if override_file:
+            file_to_open = override_file
+        else:
+            file_to_open = f'texts/big_{language}.txt'
         
         with open(file_to_open, "r") as file:
             raw_text = file.read()

@@ -43,8 +43,5 @@ def correct_string(string):
     if len(string.split(" ")) > 2:
         candidates_words_probabilities = model.get_probabilities(string, candidates_words)
         candidates_words.sort(key = candidates_words_probabilities.get, reverse = True)
-        print(candidates_words_probabilities)
-        
-    candidates_words = [word.capitalize() for word in candidates_words]
     
     return candidates_words[:3], 200

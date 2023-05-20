@@ -3,8 +3,12 @@ from nltk.util import ngrams
 
 class NGramModel:
     
-    def __init__(self, language: str):
-        file_to_open = f'texts/big_{"en"}.txt'
+    def __init__(self, language: str, override_file = None):
+        if override_file:
+            file_to_open = override_file
+        else:
+            file_to_open = f'texts/big_{language}.txt'
+            
         with open(file_to_open, "r") as file:
             corpus = file.read()
             
