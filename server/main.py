@@ -5,13 +5,13 @@ from core.NGramModel import NGramModel
 
 flask_app = Flask(__name__)
 
-# ngram_model_armenian = NGramModel("am")
-# print("NGramModel armenian ready")
+ngram_model_armenian = NGramModel("am")
+print("NGramModel armenian ready")
 ngram_model_english = NGramModel("en")
 print("NGramModel english ready")
 
-# service_armenian = SpellChecker("am")
-# print("SpellChecker armenian ready")
+service_armenian = SpellChecker("am")
+print("SpellChecker armenian ready")
 service_english = SpellChecker("en")
 print("SpellChecker english ready")
 
